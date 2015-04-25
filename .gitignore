@@ -1,0 +1,15 @@
+*~
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+
+/logs
+*.log
+/tmp
+/pids
+/*.pid
+/*.ipc
+
+.sass-cache
+/node_modules
