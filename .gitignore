@@ -14,4 +14,8 @@ Desktop.ini
 .sass-cache
 /node_modules
 
+/dist/*
+!/dist/.gitkeep
+
 BoscaCeoil.swf
+src/js/cfg.js
