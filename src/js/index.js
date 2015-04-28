@@ -1,6 +1,7 @@
 var $ = require('jquery');
 var QueryString = require('query-string');
 var Parse = require('parse').Parse;
+window.Parse = Parse; // for debugging
 var cfg = require('./cfg');
 
 Parse.initialize(cfg.PARSE_APP_ID, cfg.PARSE_JAVASCRIPT_ID);
@@ -38,9 +39,6 @@ function loadTrack (id, cb) {
 function makeNewTrack () {
   var track = new Track();
   track.set('title', 'untitled');
-  if (currentUser) {
-    track.set("parent", currentUser);
-  }
   return track;
 }
 
