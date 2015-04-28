@@ -17,7 +17,7 @@ Desktop.ini
 /dist/*
 !/dist/.gitkeep
 
-BoscaCeoil.swf
+# BoscaCeoil.swf
 src/js/cfg.js
 
 parse/config
