@@ -26,13 +26,15 @@ Parse.Cloud.beforeSave(Parse.User, function(request, response) {
   // update
   } else {
     var dirtyKeys = obj.dirtyKeys();
-    // Don't allow changes to username
-    for (var i=0, len=dirtyKeys.length; i<len; i++) {
-      if ( dirtyKeys[i] === 'username' ) {
-        return response.error("User is not allowed to modify " + dirtyKeys[i]);
-      }
-      if ( dirtyKeys[i] === 'email' && !Validator.isEmail(email) ) {
-        return response.error('invalid email');
+    // Don't allow changes to username/ACL unless master
+    if (!request.master) {
+      for (var i=0, len=dirtyKeys.length; i<len; i++) {
+        if ( dirtyKeys[i] === 'username' || dirtyKeys[i] === 'ACL' ) {
+          return response.error("User is not allowed to modify " + dirtyKeys[i]);
+        }
+        if ( dirtyKeys[i] === 'email' && !Validator.isEmail(email) ) {
+          return response.error('invalid email');
+        }
       }
     }
 
@@ -85,11 +87,13 @@ Parse.Cloud.beforeSave("Track", function(request, response) {
 
   // update
   } else {
-    // Don't allow changes to ownership or ACL
-    var dirtyKeys = track.dirtyKeys();
-    for (var i=0, len=dirtyKeys.length; i<len; i++) {
-      if ( dirtyKeys[i] === 'user' || dirtyKeys[i] === 'ACL' ) {
-        return response.error("User is not allowed to modify track's " + dirtyKeys[i]);
+    // Don't allow changes to ownership or ACL unless master
+    if (!request.master) {
+      var dirtyKeys = track.dirtyKeys();
+      for (var i=0, len=dirtyKeys.length; i<len; i++) {
+        if ( dirtyKeys[i] === 'user' || dirtyKeys[i] === 'ACL' ) {
+          return response.error("User is not allowed to modify track's " + dirtyKeys[i]);
+        }
       }
     }
   }
