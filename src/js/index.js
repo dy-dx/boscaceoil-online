@@ -9,16 +9,10 @@ var Track = Parse.Object.extend("Track");
 var currentUser = Parse.User.current();
 var currentTrack = null;
 
-// expose global "api" for flash ExternalInterface stuff
+// expose global "api" for flash ExternalInterface.call stuff
 window.Bosca = {
   isReady: function () {
     return !!currentTrack;
-  },
-  saveCeol: function (ceolString) {
-    console.log("saveCeol", ceolString);
-    // location.hash = ceolString;
-    currentTrack.set("ceol", ceolString);
-    currentTrack.save();
   },
   loadCeol: function () {
     var ceolString = currentTrack.get("ceol");
@@ -41,18 +35,47 @@ function loadTrack (id, cb) {
   });
 }
 
-function newTrack () {
+function makeNewTrack () {
   var track = new Track();
   track.set('title', 'untitled');
   if (currentUser) {
     track.set("parent", currentUser);
   }
-  currentTrack = track;
   return track;
 }
 
+function saveTrack () {
+  var ceolString = document.getElementById("BoscaCeoil").getCeolString();
+  console.log("saveCeol", ceolString);
+  // Todo: check permissions
+  currentTrack.set("ceol", ceolString);
+  currentTrack.save().then(function(track) {
+    // the object was saved successfully
+    // append querystring
+    var parsed = QueryString.parse(window.location.search);
+    parsed.track = track.id;
+    window.location.search = QueryString.stringify(parsed);
+  }, function (error) {
+    // the save failed
+    window.alert("save failed");
+  });
+}
 
+function newTrack () {
+  var parsed = QueryString.parse(window.location.search);
+  delete parsed.track;
+  window.location.search = QueryString.stringify(parsed);
+}
 
+$('#new-button').click(function (e) {
+  newTrack();
+  e.preventDefault();
+});
+
+$('#save-button').click(function (e) {
+  saveTrack();
+  e.preventDefault();
+});
 
 if (currentUser) {
     // do stuff with the user
@@ -60,12 +83,17 @@ if (currentUser) {
     // show the signup or login page
 }
 
-var currentTrackId = QueryString.parse(location.search).track;
-loadTrack(currentTrackId, function (err, track) {
-  if (err) {
-    console.log(err);
-    currentTrack = newTrack();
-  } else {
-    currentTrack = track;
-  }
-});
+var parsedQs = QueryString.parse(location.search);
+if (parsedQs.hasOwnProperty('track')) {
+  var currentTrackId = parsedQs.track;
+  loadTrack(currentTrackId, function (err, track) {
+    if (err) {
+      console.log(err);
+      newTrack();
+    } else {
+      currentTrack = track;
+    }
+  });
+} else {
+  currentTrack = makeNewTrack();
+}

@@ -1,12 +1,17 @@
-@import 'vendor/normalize-3.0.2';
+// @import 'vendor/normalize-3.0.2';
 
 html, body {
-  height: 100%;
-  background-color: black;
+  // height: 100%;
+  // background-color: black;
+  // color: darkgrey;
 }
 
-#container {
+#bosca-container {
   margin: 0 auto;
   width: 768px;
   height: 480px;
+}
+
+.login-menu {
+  float: right;
 }

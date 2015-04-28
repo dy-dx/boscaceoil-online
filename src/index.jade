@@ -1,12 +1,30 @@
 doctype html
 html(lang='en')
   head
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    link(rel='stylesheet', href='http://yui.yahooapis.com/pure/0.6.0/pure-min.css')
     link(rel='stylesheet', href='style.css')
   body
     #container
-      object#BoscaCeoil(width='100%', height='100%')
-        param(name='movie', value='BoscaCeoil.swf')
-        param(name='scale', value='default')
-        embed(src='BoscaCeoil.swf', type='application/x-shockwave-flash', width='100%', height='100%', name='BoscaCeoil')
+      .header
+        .pure-menu.pure-menu-horizontal
+          //- a.pure-menu-heading(href="javascript:") Bosca Ceoil Online
+          ul.pure-menu-list
+            li.pure-menu-item.pure-menu-selected
+              a#new-button.pure-menu-link(href="#") New
+            li.pure-menu-item
+              a#save-button.pure-menu-link(href="#") Save
+            //- li.pure-menu-item
+            //-   a#export-button.pure-menu-link(href="#") Export
+            //- li.pure-menu-item
+            //-   a.pure-menu-link(href="#") Browse
+          //- ul.pure-menu-list.login-menu
+          //-   li.pure-menu-item
+          //-     a.pure-menu-link(href="javascript:") Login
+      #bosca-container
+        object#BoscaCeoil(width='100%', height='100%')
+          param(name='movie', value='BoscaCeoil.swf')
+          param(name='scale', value='default')
+          embed(src='BoscaCeoil.swf', type='application/x-shockwave-flash', width='100%', height='100%', name='BoscaCeoil')
 
     script(src='bundle.js')
