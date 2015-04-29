@@ -10,7 +10,10 @@ var notify = require('gulp-notify');
 
 gulp.task('sass', function() {
   return gulp.src('./src/css/**/*.scss')
-    .pipe(sass())
+    .pipe(sass({
+      includePaths: [ 'node_modules/purecss/build/' ]
+    }))
+    .on('error', notify.onError('<%= error.message %>'))
     .pipe(gulp.dest('./dist'))
     .pipe(browserSync.reload({
       stream: true
@@ -20,6 +23,7 @@ gulp.task('sass', function() {
 gulp.task('jade', function() {
   return gulp.src('./src/*.jade')
     .pipe(jade())
+    .on('error', notify.onError('<%= error.message %>'))
     .pipe(gulp.dest('./dist'));
 });
 
