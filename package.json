@@ -18,8 +18,8 @@
   , "browserify": "~9.0.8"
   , "gulp": "~3.8.11"
   , "gulp-jade": "1.0.0"
+  , "gulp-notify": "~2.2.0"
   , "gulp-sass": "dlmanning/gulp-sass#2.x"
-  , "gulp-util": "~3.0.4"
   , "vinyl-source-stream": "~1.1.0"
   , "watchify": "~3.2.0"
   }

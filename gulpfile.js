@@ -6,7 +6,7 @@ var browserSync = require('browser-sync');
 var source = require('vinyl-source-stream');
 var jade = require('gulp-jade');
 var sass = require('gulp-sass');
-var gutil = require('gulp-util');
+var notify = require('gulp-notify');
 
 gulp.task('sass', function() {
   return gulp.src('./src/css/**/*.scss')
@@ -30,7 +30,7 @@ gulp.task('watch', ['sass', 'jade'], function() {
   // bundler.transform(coffeeify);
   var rebundle = function () {
     return bundler.bundle()
-      .on('error', gutil.log.bind(gutil, 'Browserify Error'))
+      .on('error', notify.onError('<%= error.message %>'))
       .pipe(source('bundle.js'))
       .pipe(gulp.dest('./dist'));
   };
