@@ -83,7 +83,8 @@ function showProfile (ctx, next) {
     htmlstrings.push('<tr><td><a href="#!/track/');
     htmlstrings.push(tracks[i].id);
     htmlstrings.push('">');
-    htmlstrings.push(tracks[i].get('title'));
+    var escapedTitle = $('<div/>').text(tracks[i].get('title')).html();
+    htmlstrings.push(escapedTitle);
     htmlstrings.push('</a></td><td>');
     htmlstrings.push(tracks[i].createdAt);
     htmlstrings.push('</td></tr>');
@@ -137,17 +138,23 @@ function updateTrackInfo () {
   var track = editor.track;
   var trackUser = track.get('user');
 
+  var canEditTrack = false;
+
   if (editor.trackLoaded) {
     // Check if track belongs to current user
     if (!!user && !!trackUser && user.id === trackUser.id) {
-      $('#save-button').removeClass('hidden');
+      canEditTrack = true;
     } else {
-      $('#save-button').addClass('hidden');
+      canEditTrack = false;
     }
   } else {
     // New track. Can be saved.
-    $('#save-button').removeClass('hidden');
+    canEditTrack = true;
   }
+
+  $('#track-title').val(track.get('title'));
+  $('#track-title').prop('readonly', !canEditTrack);
+  $('#save-button').toggleClass('hidden', !canEditTrack);
 }
 
 updateUserInfo();

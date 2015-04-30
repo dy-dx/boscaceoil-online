@@ -61,10 +61,15 @@ Editor.prototype.setNewTrack = function () {
   }
   this.trackLoaded = false;
   this.track = new Track();
-  this.track.set('title', 'untitled');
+  this.track.set('title', '');
 };
 
 Editor.prototype.saveTrack = function () {
+  var newTitle = $('#track-title').val();
+  if (newTitle !== this.track.get('title')) {
+    this.track.set('title', newTitle);
+  }
+
   var ceolString = this._getCeolString();
   console.log("saveCeol", ceolString);
   // Todo: check permissions
