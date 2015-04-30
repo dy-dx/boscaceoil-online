@@ -8,7 +8,8 @@
 , "scripts": {
   }
 , "dependencies": {
-    "jquery": "~2.1.3"
+    "bootstrap-sass": "3.3.4"
+  , "jquery": "~2.1.4"
   , "parse": "~1.4.2"
   , "purecss": "0.6.0"
   , "query-string": "~1.0.0"
@@ -23,5 +24,8 @@
   , "gulp-sass": "dlmanning/gulp-sass#2.x"
   , "vinyl-source-stream": "~1.1.0"
   , "watchify": "~3.2.0"
+  }
+, "browser": {
+    "bootstrap-modal": "./node_modules/bootstrap-sass/assets/javascripts/bootstrap/modal.js"
   }
 }

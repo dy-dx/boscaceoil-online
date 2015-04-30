@@ -11,7 +11,10 @@ var notify = require('gulp-notify');
 gulp.task('sass', function() {
   return gulp.src('./src/css/**/*.scss')
     .pipe(sass({
-      includePaths: [ 'node_modules/purecss/build/' ]
+      includePaths: [
+        'node_modules/purecss/build/',
+        'node_modules/bootstrap-sass/assets/stylesheets'
+      ]
     }))
     .on('error', notify.onError('<%= error.message %>'))
     .pipe(gulp.dest('./dist'))
@@ -22,7 +25,9 @@ gulp.task('sass', function() {
 
 gulp.task('jade', function() {
   return gulp.src('./src/*.jade')
-    .pipe(jade())
+    .pipe(jade({
+      pretty: true
+    }))
     .on('error', notify.onError('<%= error.message %>'))
     .pipe(gulp.dest('./dist'));
 });

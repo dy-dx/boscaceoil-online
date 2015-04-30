@@ -1,8 +1,13 @@
-var $ = require('jquery');
+var $ = global.$ = global.jQuery = require('jquery');
+// jQuery plugins, under "browser" key in package.json
+require('bootstrap-modal');
+
+
 var QueryString = require('query-string');
 var Parse = require('parse').Parse;
 window.Parse = Parse; // for debugging
 var cfg = require('./cfg');
+
 
 Parse.initialize(cfg.PARSE_APP_ID, cfg.PARSE_JAVASCRIPT_ID);
 var Track = Parse.Object.extend("Track");
@@ -63,22 +68,74 @@ function newTrack () {
   var parsed = QueryString.parse(window.location.search);
   delete parsed.track;
   window.location.search = QueryString.stringify(parsed);
+  window.location.reload(true);
 }
 
+function logout () {
+  Parse.User.logOut();
+  currentUser = null;
+  window.location.reload(true);
+}
+
+
+// Menu actions
+
 $('#new-button').click(function (e) {
-  newTrack();
   e.preventDefault();
+  newTrack();
+});
+$('#save-button').click(function (e) {
+  e.preventDefault();
+  saveTrack();
+});
+$('#logout-link').click(function (e) {
+  e.preventDefault();
+  logout();
+});
+$('#profile-link').click(function (e) {
+  e.preventDefault();
+  // todo
 });
 
-$('#save-button').click(function (e) {
-  saveTrack();
-  e.preventDefault();
-});
 
 if (currentUser) {
-    // do stuff with the user
+  // do stuff with the user
+  $('.user-action-menu').removeClass('hidden');
+  $('#profile-link').text(currentUser.get('username'));
 } else {
-    // show the signup or login page
+  // reveal the login/signup link
+  $('.login-link-container').removeClass('hidden');
+  // Set up login form
+  $('#login-form').submit(function (e) {
+    e.preventDefault();
+    var username = $('#login-username').val().toLowerCase();
+    var password = $('#login-password').val();
+    Parse.User.logIn(username, password, {
+      success: function (user) {
+        window.location.reload(true);
+      },
+      error: function (user, error) {
+        console.log(error);
+        alert("Error: " + error.message);
+      }
+    });
+  });
+  // Set up signup form
+  $('#signup-form').submit(function (e) {
+    e.preventDefault();
+    var user = new Parse.User();
+    user.set('username', $('#signup-username').val().toLowerCase());
+    user.set('password', $('#signup-password').val());
+    user.set('email', $('#signup-email').val());
+    user.signUp(null, {
+      success: function (user) {
+        window.location.reload(true);
+      },
+      error: function (user, error) {
+        alert("Error: " + error.code + " " + error.message);
+      }
+    });
+  });
 }
 
 var parsedQs = QueryString.parse(location.search);

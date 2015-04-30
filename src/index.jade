@@ -2,7 +2,6 @@ doctype html
 html(lang='en')
   head
     meta(name='viewport', content='width=device-width, initial-scale=1')
-    //- link(rel='stylesheet', href='http://yui.yahooapis.com/pure/0.6.0/pure-min.css')
     link(rel='stylesheet', href='style.css')
   body
     #container
@@ -11,20 +10,74 @@ html(lang='en')
           //- a.pure-menu-heading(href="javascript:") Bosca Ceoil Online
           ul.pure-menu-list
             li.pure-menu-item.pure-menu-selected
-              a#new-button.pure-menu-link(href="#") New
+              a#new-button.pure-menu-link(href="#new") New
             li.pure-menu-item
-              a#save-button.pure-menu-link(href="#") Save
+              a#save-button.pure-menu-link(href="#save") Save
             //- li.pure-menu-item
             //-   a#export-button.pure-menu-link(href="#") Export
             //- li.pure-menu-item
             //-   a.pure-menu-link(href="#") Browse
-          //- ul.pure-menu-list.login-menu
-          //-   li.pure-menu-item
-          //-     a.pure-menu-link(href="javascript:") Login
+          ul.pure-menu-list.user-menu
+            li.pure-menu-item.login-link-container.hidden
+              a.pure-menu-link(href='#login-modal', data-toggle='modal') Login
+            li.user-action-menu.hidden.pure-menu-item.pure-menu-has-children.pure-menu-allow-hover
+              a#profile-link.pure-menu-link(href='#profile') [your name]
+              ul.pure-menu-children
+                li.pure-menu-item
+                  a#logout-link.pure-menu-link(href='#logout') Logout
       #bosca-container
         object#BoscaCeoil(width='100%', height='100%')
           param(name='movie', value='BoscaCeoil.swf')
           param(name='scale', value='default')
           embed(src='BoscaCeoil.swf', type='application/x-shockwave-flash', width='100%', height='100%', name='BoscaCeoil')
+
+    //- Hidden modal content
+    #login-modal.login-modal.modal(tabindex='-1', role='dialog', aria-labelledby='login-modal-label', aria-hidden='true')
+      //- .modal-dialog.modal-lg
+      .modal-dialog
+        .modal-content
+          //- .modal-header
+          //-   a.close(type="button" data-dismiss="modal" aria-label="Close")
+          //-     span(aria-hidden="true") &times;
+          //-   h1#login-modal-label.modal-title A Very Nice Modal
+          .modal-body
+            .pure-g
+              .pure-u-1-2
+                form#login-form(name='login-form', method='post').pure-form.pure-form-aligned
+                  fieldset
+                    .pure-control-group
+                      label(for='login-username') Username
+                      input#login-username.pure-input-1-2(name='username', type='text', autocomplete='off', required, pattern='[a-zA-Z0-9]*')
+
+                    .pure-control-group
+                      label(for='login-password') Password
+                      input#login-password.pure-input-1-2(name='password', type='password', required)
+
+                    //- .pure-controls
+                    //-   label.pure-checkbox(for='login-remember')
+                    //-     input#login-remember(name='remember', type='checkbox')
+                    //-     |  Remember me
+                    .pure-controls
+                      button#login-button.pure-button.pure-button-primary(type='submit') Login
+              .pure-u-1-2
+                form#signup-form(name='signup-form', method='post').pure-form.pure-form-aligned
+                  fieldset
+                    .pure-control-group
+                      label(for='signup-username') Username
+                      input#signup-username.pure-input-1-2(name='username', type='text', autocomplete='off', required, pattern='[a-zA-Z0-9]*')
+
+                    .pure-control-group
+                      label(for='signup-password') Password
+                      input#signup-password.pure-input-1-2(name='password', type='password', required)
+
+                    .pure-control-group
+                      label(for='signup-email') Email
+                      input#signup-email.pure-input-1-2(name='email', type='email', autocomplete='off', required)
+
+                    .pure-controls
+                      button#signup-button.pure-button.pure-button-primary(type='submit') Sign Up
+          //- .modal-footer
+          //-   button.pure-button(data-dismiss='modal', aria-hidden='true') Close
+          //-   button.pure-button.pure-button-primary Submit
 
     script(src='bundle.js')
