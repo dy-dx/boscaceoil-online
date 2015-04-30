@@ -68,7 +68,6 @@ function newTrack () {
   var parsed = QueryString.parse(window.location.search);
   delete parsed.track;
   window.location.search = QueryString.stringify(parsed);
-  window.location.reload(true);
 }
 
 function logout () {
