@@ -49,6 +49,7 @@ function editTrack (ctx, next) {
   } else {
     editor.setNewTrack();
   }
+  updateTrackInfo();
 }
 
 function notfound () {
@@ -98,6 +99,24 @@ function updateUserInfo () {
   // show/hide user menu, login link etc
   $('.login-link-container').toggleClass('hidden', userExists);
   $('.user-action-menu').toggleClass('hidden', !userExists);
+}
+
+function updateTrackInfo () {
+  var user = Parse.User.current();
+  var track = editor.track;
+  var trackUser = track.get('user');
+
+  if (editor.trackLoaded) {
+    // Check if track belongs to current user
+    if (!!user && !!trackUser && user.id === trackUser.id) {
+      $('#save-button').removeClass('hidden');
+    } else {
+      $('#save-button').addClass('hidden');
+    }
+  } else {
+    // New track. Can be saved.
+    $('#save-button').removeClass('hidden');
+  }
 }
 
 updateUserInfo();
