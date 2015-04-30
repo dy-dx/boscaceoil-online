@@ -7,14 +7,14 @@ function Editor () {
 }
 
 // Called by BoscaCeoil.swf to determine when to start
-Editor.prototype.isReady = function () {
+Editor.prototype._isReady = function () {
   this.swf = document.getElementById("BoscaCeoil");
   return !!this.track;
 };
 
 // Called by BoscaCeoil.swf to retrieve ceol upon startup.
 // Must return either ceol or empty string.
-Editor.prototype.loadCeol = function () {
+Editor.prototype._getStartupCeol = function () {
   if (!this.trackLoaded) {
     return '';
   }
@@ -24,28 +24,53 @@ Editor.prototype.loadCeol = function () {
   return ceolString || '';
 };
 
+// Calls control.getCeolString in BoscaCeoil.swf
+Editor.prototype._getCeolString = function () {
+  return this.swf.getCeolString();
+};
+
+// Calls control.invokeCeolWeb in BoscaCeoil.swf
+Editor.prototype._invokeCeol = function (ceolStr) {
+  this.swf.invokeCeolWeb(ceolStr);
+};
+
+// Calls control.newsong in BoscaCeoil.swf
+Editor.prototype._newSong = function () {
+  this.swf.newSong();
+};
+
 
 Editor.prototype.loadTrack = function (track) {
+  if (this.track) {
+    this._invokeCeol(track.get('ceol'));
+  } else {
+    // Don't invoke ceol if first load, to avoid bpm startup bug.
+    // The swf will call _getStartupCeol on its own.
+  }
   this.track = track;
   this.trackLoaded = true;
 };
 
 Editor.prototype.setNewTrack = function () {
+  if (this.track) {
+    this._newSong();
+  } else {
+    // Don't invoke newsong if first load.
+    // The swf will call _getStartupCeol on its own.
+  }
+  this.trackLoaded = false;
   this.track = new Track();
   this.track.set('title', 'untitled');
 };
 
 Editor.prototype.saveTrack = function () {
-  var ceolString = this.swf.getCeolString();
+  var ceolString = this._getCeolString();
   console.log("saveCeol", ceolString);
   // Todo: check permissions
   this.track.set("ceol", ceolString);
   this.track.save().then(function(track) {
-    // the object was saved successfully
-    // append querystring
-    var parsed = QueryString.parse(window.location.search);
-    parsed.track = track.id;
-    window.location.search = QueryString.stringify(parsed);
+    // update route
+    page('/track/' + track.id);
   }, function (error) {
     // the save failed
     window.alert("save failed");

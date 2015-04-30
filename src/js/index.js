@@ -19,7 +19,54 @@ var editor = new Editor();
 window.Bosca = editor;
 
 
-function getTrack (id, cb) {
+// Routes
+
+// page.base('/#!');
+page.base(location.pathname + '#!');
+page('/', editTrack);
+page('/track/:trackId', loadTrack, editTrack);
+page('/logout', logout);
+page('*', notfound);
+// page({hashbang: true});
+page({hashbang: false});
+
+
+function loadTrack (ctx, next) {
+  _getTrack(ctx.params.trackId, function (err, track) {
+    if (err) {
+      console.log(err);
+      page('/');
+    } else {
+      ctx.track = track;
+      next();
+    }
+  });
+}
+
+function editTrack (ctx, next) {
+  if (ctx.track) {
+    editor.loadTrack(ctx.track);
+  } else {
+    editor.setNewTrack();
+  }
+}
+
+function notfound () {
+  page('/');
+}
+
+function logout (ctx) {
+  Parse.User.logOut();
+  // page.redirect here is better so /logout is not in history, but
+  // it bugs out with the reload. Fix it later.
+  page('/');
+  // probably just wanna reload here but we'll see
+  window.location.reload(true);
+}
+
+// helpers
+
+function _getTrack (id, cb) {
   var query = new Parse.Query(Track);
   query.get(id, {
     success: function (track) {
@@ -31,59 +78,26 @@ function getTrack (id, cb) {
   });
 }
 
-function newTrack () {
-  var parsed = QueryString.parse(window.location.search);
-  delete parsed.track;
-  window.location.search = QueryString.stringify(parsed);
-}
-
-function logout () {
-  Parse.User.logOut();
-  window.location.reload(true);
-}
-
-
 // Menu actions
 require('./login-form').setup();
-$('#new-button').click(function (e) {
-  e.preventDefault();
-  newTrack();
-});
 $('#save-button').click(function (e) {
   e.preventDefault();
   editor.saveTrack();
-});
-$('#logout-link').click(function (e) {
-  e.preventDefault();
-  logout();
 });
 $('#profile-link').click(function (e) {
   e.preventDefault();
   // todo
 });
 
-if (Parse.User.current()) {
-  // reveal user menu, logout link etc
-  $('.user-action-menu').removeClass('hidden');
-  $('#profile-link').text(Parse.User.current().get('username'));
-} else {
-  // reveal the login/signup link
-  $('.login-link-container').removeClass('hidden');
+function updateUserInfo () {
+  var user = Parse.User.current();
+  var userExists = !!user;
+  if (userExists) {
+    $('#profile-link').text(user.get('username'));
+  }
+  // show/hide user menu, login link etc
+  $('.login-link-container').toggleClass('hidden', userExists);
+  $('.user-action-menu').toggleClass('hidden', !userExists);
 }
 
-// determine whether to load a track (?track=id) or
-
-var parsedQs = QueryString.parse(location.search);
-if (parsedQs.hasOwnProperty('track')) {
-  var currentTrackId = parsedQs.track;
-  getTrack(currentTrackId, function (err, track) {
-    if (err) {
-      console.log(err);
-      newTrack();
-    } else {
-      editor.loadTrack(track);
-    }
-  });
-} else {
-  editor.setNewTrack();
-}
+updateUserInfo();

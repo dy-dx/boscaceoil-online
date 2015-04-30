@@ -11,7 +11,7 @@ html(lang='en')
           //- a.pure-menu-heading(href="javascript:") Bosca Ceoil Online
           ul.pure-menu-list
             li.pure-menu-item.pure-menu-selected
-              a#new-button.pure-menu-link(href="#new") New
+              a#new-button.pure-menu-link(href="#!/") New
             li.pure-menu-item
               a#save-button.pure-menu-link(href="#save") Save
             //- li.pure-menu-item
@@ -22,10 +22,10 @@ html(lang='en')
             li.pure-menu-item.login-link-container.hidden
               a.pure-menu-link(href='#login-modal', data-toggle='modal') Login
             li.user-action-menu.hidden.pure-menu-item.pure-menu-has-children.pure-menu-allow-hover
-              a#profile-link.pure-menu-link(href='#profile') [your name]
+              a#profile-link.pure-menu-link(href='#!/profile') [your name]
               ul.pure-menu-children
                 li.pure-menu-item
-                  a#logout-link.pure-menu-link(href='#logout') Logout
+                  a#logout-link.pure-menu-link(href='#!/logout') Logout
       #bosca-container
         object#BoscaCeoil(type='application/x-shockwave-flash', data='BoscaCeoil.swf', width='100%', height='100%', allowscriptaccess='always', allowfullscreen='true')
           param(name='scale', value='default')
