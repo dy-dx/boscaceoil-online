@@ -27,16 +27,9 @@ html(lang='en')
                 li.pure-menu-item
                   a#logout-link.pure-menu-link(href='#logout') Logout
       #bosca-container
-        object#BoscaCeoil(classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000', width='100%', height='100%')
-          param(name='movie', value='BoscaCeoil.swf')
+        object#BoscaCeoil(type='application/x-shockwave-flash', data='BoscaCeoil.swf', width='100%', height='100%', allowscriptaccess='always', allowfullscreen='true')
           param(name='scale', value='default')
-          <!--[if !IE]>-->
-          object(type='application/x-shockwave-flash', data='BoscaCeoil.swf', width='100%', height='100%')
-            param(name='scale', value='default')
-            <!--<![endif]-->
-            h1 This website requires Flash.
-            <!--[if !IE]>-->
-          <!--<![endif]-->
+          h1 This website requires Flash.
 
 
     //- Hidden modal content
