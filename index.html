@@ -1,1 +1,131 @@
-<!DOCTYPE html><html lang="en"><head><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css"><link rel="stylesheet" href="style.css"></head><body><div id="container"><div class="header"><div class="pure-menu pure-menu-horizontal"><ul class="pure-menu-list"><li class="pure-menu-item pure-menu-selected"><a id="new-button" href="#" class="pure-menu-link">New</a></li><li class="pure-menu-item"><a id="save-button" href="#" class="pure-menu-link">Save</a></li></ul></div></div><div id="bosca-container"><object id="BoscaCeoil" width="100%" height="100%"><param name="movie" value="BoscaCeoil.swf"><param name="scale" value="default"><embed src="BoscaCeoil.swf" type="application/x-shockwave-flash" width="100%" height="100%" name="BoscaCeoil"></object></div></div><script src="bundle.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bosca Ceoil Online</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <div id="container">
+      <div class="header">
+        <div class="pure-menu pure-menu-horizontal">
+          <ul class="pure-menu-list">
+            <li class="pure-menu-item pure-menu-selected"><a id="new-button" href="#!/" class="pure-menu-link">New</a></li>
+            <li class="pure-menu-item pure-menu-selected"><a id="about-link" href="http://distractionware.com/blog/2013/08/bosca-ceoil/" rel="external" class="pure-menu-link">About</a></li>
+          </ul>
+          <ul class="pure-menu-list user-menu">
+            <li class="pure-menu-item login-link-container hidden"><a href="#login-modal" data-toggle="modal" class="pure-menu-link">Login</a></li>
+            <li class="user-action-menu hidden pure-menu-item pure-menu-has-children pure-menu-allow-hover"><a id="profile-link" href="#!/profile" class="pure-menu-link">[your name]</a>
+              <ul class="pure-menu-children">
+                <li class="pure-menu-item"><a href="#!/profile" class="pure-menu-link">Profile</a></li>
+                <li class="pure-menu-item"><a id="logout-link" href="#!/logout" class="pure-menu-link">Logout</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="editor">
+        <form action="javascript:void(0)" class="pure-form">
+          <fieldset class="pure-menu pure-menu-horizontal">
+            <label for="track-title">Title:</label>
+            <input id="track-title" name="title" type="text" placeholder="untitled">
+            <ul class="pure-menu-list">
+              <li class="pure-menu-item"><a id="save-button" class="pure-button pure-button-primary hidden">Save</a></li>
+              <li class="pure-menu-item"><a id="delete-button" class="pure-button button-error hidden">Delete</a></li>
+              <li class="track-export-menu pure-menu-item pure-menu-has-children pure-menu-allow-hover"><a class="pure-button">Export</a>
+                <ul class="pure-menu-children">
+                  <li class="pure-menu-item"><a id="export-ceol-button" href="javascript:" class="pure-menu-link">.ceol</a></li>
+                  <li class="pure-menu-item"><a id="export-wav-button" href="javascript:" class="pure-menu-link">.wav</a></li>
+                </ul>
+              </li>
+              <li class="pure-menu-item">
+                <input id="import-ceol-input" type="file" accept=".ceol"><a id="import-ceol-button" class="pure-button hidden">Import .ceol</a>
+              </li>
+            </ul>
+          </fieldset>
+        </form>
+        <div id="bosca-container">
+          <object id="BoscaCeoil" type="application/x-shockwave-flash" data="BoscaCeoil.swf" width="100%" height="100%" allowscriptaccess="always" allowfullscreen="true">
+            <param name="scale" value="default">
+            <h1>This website requires Flash.</h1>
+          </object>
+        </div>
+      </div>
+    </div>
+    <div id="login-modal" tabindex="-1" role="dialog" aria-labelledby="login-modal-label" aria-hidden="true" class="login-modal modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-body">
+            <div class="pure-g">
+              <div class="pure-u-1-2">
+                <form id="login-form" name="login-form" method="post" class="pure-form pure-form-aligned">
+                  <fieldset>
+                    <div class="pure-control-group">
+                      <label for="login-username">Username</label>
+                      <input id="login-username" name="username" type="text" autocomplete="off" required pattern="[a-zA-Z0-9]*" class="pure-input-1-2">
+                    </div>
+                    <div class="pure-control-group">
+                      <label for="login-password">Password</label>
+                      <input id="login-password" name="password" type="password" required class="pure-input-1-2">
+                    </div>
+                    <div class="pure-controls">
+                      <button id="login-button" type="submit" class="pure-button pure-button-primary">Login</button>
+                    </div>
+                  </fieldset>
+                </form>
+              </div>
+              <div class="pure-u-1-2">
+                <form id="signup-form" name="signup-form" method="post" class="pure-form pure-form-aligned">
+                  <fieldset>
+                    <div class="pure-control-group">
+                      <label for="signup-username">Username</label>
+                      <input id="signup-username" name="username" type="text" autocomplete="off" required pattern="[a-zA-Z0-9]*" class="pure-input-1-2">
+                    </div>
+                    <div class="pure-control-group">
+                      <label for="signup-password">Password</label>
+                      <input id="signup-password" name="password" type="password" required class="pure-input-1-2">
+                    </div>
+                    <div class="pure-control-group">
+                      <label for="signup-email">Email</label>
+                      <input id="signup-email" name="email" type="email" autocomplete="off" required class="pure-input-1-2">
+                    </div>
+                    <div class="pure-controls">
+                      <button id="signup-button" type="submit" class="pure-button pure-button-primary">Sign Up</button>
+                    </div>
+                  </fieldset>
+                </form>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+    <div id="profile-modal" tabindex="-1" role="dialog" aria-labelledby="login-modal-label" aria-hidden="true" class="profile-modal modal">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h2 id="login-modal-label" class="modal-title">Your Profile</h2>
+          </div>
+          <div class="modal-body">
+            <div class="pure-g">
+              <div class="pure-u">
+                <table class="pure-table pure-table-horizontal">
+                  <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Created At</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="bundle.js"></script>
+  </body>
+</html>
