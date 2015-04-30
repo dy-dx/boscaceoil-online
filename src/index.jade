@@ -2,6 +2,7 @@ doctype html
 html(lang='en')
   head
     meta(name='viewport', content='width=device-width, initial-scale=1')
+    title Bosca Ceoil Online
     link(rel='stylesheet', href='style.css')
   body
     #container
@@ -26,10 +27,17 @@ html(lang='en')
                 li.pure-menu-item
                   a#logout-link.pure-menu-link(href='#logout') Logout
       #bosca-container
-        object#BoscaCeoil(width='100%', height='100%')
+        object#BoscaCeoil(classid='clsid:D27CDB6E-AE6D-11cf-96B8-444553540000', width='100%', height='100%')
           param(name='movie', value='BoscaCeoil.swf')
           param(name='scale', value='default')
-          embed(src='BoscaCeoil.swf', type='application/x-shockwave-flash', width='100%', height='100%', name='BoscaCeoil')
+          <!--[if !IE]>-->
+          object(type='application/x-shockwave-flash', data='BoscaCeoil.swf', width='100%', height='100%')
+            param(name='scale', value='default')
+            <!--<![endif]-->
+            h1 This website requires Flash.
+            <!--[if !IE]>-->
+          <!--<![endif]-->
+
 
     //- Hidden modal content
     #login-modal.login-modal.modal(tabindex='-1', role='dialog', aria-labelledby='login-modal-label', aria-hidden='true')
