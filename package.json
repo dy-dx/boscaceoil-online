@@ -10,6 +10,7 @@
 , "dependencies": {
     "bootstrap-sass": "3.3.4"
   , "jquery": "~2.1.4"
+  , "page": "1.6.3"
   , "parse": "~1.4.2"
   , "purecss": "0.6.0"
   , "query-string": "~1.0.0"
