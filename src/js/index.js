@@ -8,6 +8,7 @@ var QueryString = require('query-string');
 var Parse = require('parse').Parse;
 window.Parse = Parse; // for debugging
 var Editor = require('./editor');
+var Profile = require('./profile');
 var cfg = require('./cfg');
 
 
@@ -25,6 +26,8 @@ window.Bosca = editor;
 page.base(location.pathname + '#!');
 page('/', editTrack);
 page('/track/:trackId', loadTrack, editTrack);
+page('/profile', loadProfile, showProfile);
+page.exit('/profile', exitProfile);
 page('/logout', logout);
 page('*', notfound);
 // page({hashbang: true});
@@ -65,6 +68,38 @@ function logout (ctx) {
   window.location.reload(true);
 }
 
+function loadProfile (ctx, next) {
+  ctx.profile = new Profile(Parse.User.current());
+  ctx.profile.fetchData(null, function (err, data) {
+    if (err) { return alert(JSON.stringify(err)); }
+    next();
+  });
+}
+
+function showProfile (ctx, next) {
+  var tracks = ctx.profile.tracks;
+  var htmlstrings = [];
+  for (var i=0, len=tracks.length; i<len; i++) {
+    htmlstrings.push('<tr><td><a href="#!/track/');
+    htmlstrings.push(tracks[i].id);
+    htmlstrings.push('">');
+    htmlstrings.push(tracks[i].get('title'));
+    htmlstrings.push('</a></td><td>');
+    htmlstrings.push(tracks[i].createdAt);
+    htmlstrings.push('</td></tr>');
+  }
+  $('#profile-modal').find('tbody').html(htmlstrings.join(''));
+
+  $('#profile-modal').modal('show');
+}
+
+function exitProfile (ctx, next) {
+  $('#profile-modal').modal('hide');
+  // TODO: go to previous state in history
+  next();
+}
+
+
 // helpers
 
 function _getTrack (id, cb) {
@@ -84,10 +119,6 @@ require('./login-form').setup();
 $('#save-button').click(function (e) {
   e.preventDefault();
   editor.saveTrack();
-});
-$('#profile-link').click(function (e) {
-  e.preventDefault();
-  // todo
 });
 
 function updateUserInfo () {

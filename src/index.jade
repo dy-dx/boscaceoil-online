@@ -25,6 +25,8 @@ html(lang='en')
               a#profile-link.pure-menu-link(href='#!/profile') [your name]
               ul.pure-menu-children
                 li.pure-menu-item
+                  a.pure-menu-link(href='#!/profile') Profile
+                li.pure-menu-item
                   a#logout-link.pure-menu-link(href='#!/logout') Logout
       #bosca-container
         object#BoscaCeoil(type='application/x-shockwave-flash', data='BoscaCeoil.swf', width='100%', height='100%', allowscriptaccess='always', allowfullscreen='true')
@@ -80,5 +82,22 @@ html(lang='en')
           //- .modal-footer
           //-   button.pure-button(data-dismiss='modal', aria-hidden='true') Close
           //-   button.pure-button.pure-button-primary Submit
+
+
+    #profile-modal.profile-modal.modal(tabindex='-1', role='dialog', aria-labelledby='login-modal-label', aria-hidden='true')
+      .modal-dialog
+        .modal-content
+          .modal-header
+            h2#login-modal-label.modal-title Your Profile
+          .modal-body
+            .pure-g
+              .pure-u
+                table.pure-table.pure-table-horizontal
+                  thead
+                    tr
+                      th Title
+                      th Created At
+                  tbody
+                    //- dynamically populated
 
     script(src='bundle.js')
