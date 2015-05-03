@@ -35,3 +35,25 @@ html, body {
   // todo: something with input[value=""]
   // https://css-tricks.com/almanac/selectors/i/invalid/
 }
+
+
+// colored button styles
+.button-success {
+  color: white;
+  background: rgb(28, 184, 65); /* this is a green */
+}
+
+.button-error {
+  color: white;
+  background: rgb(202, 60, 60); /* this is a maroon */
+}
+
+.button-warning {
+  color: white;
+  background: rgb(223, 117, 20); /* this is an orange */
+}
+
+.button-secondary {
+  color: white;
+  background: rgb(66, 184, 221); /* this is a light blue */
+}
