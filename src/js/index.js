@@ -69,6 +69,9 @@ function logout (ctx) {
 }
 
 function loadProfile (ctx, next) {
+  if (!Parse.User.current()) {
+    page.redirect('/');
+  }
   ctx.profile = new Profile(Parse.User.current());
   ctx.profile.fetchData(null, function (err, data) {
     if (err) { return alert(JSON.stringify(err)); }
