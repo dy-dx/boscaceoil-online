@@ -83,8 +83,17 @@ Editor.prototype.saveTrack = function () {
   });
 };
 
-Editor.prototype.deleteTrack = function () {
-  return false;
+Editor.prototype.deleteTrack = function (cb) {
+  var self = this;
+  this.track.destroy({
+    success: function (obj) {
+      cb(null);
+      self.track = null;
+    },
+    error: function (obj, err) {
+      cb(err);
+    }
+  });
 };
 
 

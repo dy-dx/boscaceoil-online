@@ -15,7 +15,7 @@ var cfg = require('./cfg');
 Parse.initialize(cfg.PARSE_APP_ID, cfg.PARSE_JAVASCRIPT_ID);
 var Track = Parse.Object.extend("Track");
 
-var editor = new Editor();
+var editor = window.editor = new Editor();
 // expose global "api" for flash ExternalInterface.call stuff
 window.Bosca = editor;
 
@@ -124,6 +124,11 @@ function _getTrack (id, cb) {
   });
 }
 
+function _notImplemented () {
+  window.alert('Not implemented');
+  return false;
+}
+
 // Menu actions
 require('./login-form').setup();
 $('#save-button').click(function (e) {
@@ -132,18 +137,24 @@ $('#save-button').click(function (e) {
 });
 $('#delete-button').click(function (e) {
   e.preventDefault();
-  if (window.confirm('Not implemented')) {
-    editor.deleteTrack();
-    // page.redirect('/');
+  if (window.confirm('Are you sure you want to delete this track?')) {
+    editor.deleteTrack(function (err) {
+      if (err) {
+        console.log(err);
+        alert('Error deleting track');
+      } else {
+        page.redirect('/');
+      }
+    });
   }
 });
 $('#export-wav-button').click(function (e) {
   e.preventDefault();
-  window.alert('Not implemented');
+  _notImplemented();
 });
 $('#export-ceol-button').click(function (e) {
   e.preventDefault();
-  window.alert('Not implemented');
+  _notImplemented();
 });
 
 function updateUserInfo () {
@@ -176,10 +187,12 @@ function updateTrackInfo () {
     canEditTrack = true;
   }
 
+  var canDeleteTrack = canEditTrack && !track.isNew();
+
   $('#track-title').val(track.get('title'));
   $('#track-title').prop('readonly', !canEditTrack);
   $('#save-button').toggleClass('hidden', !canEditTrack);
-  $('#delete-button').toggleClass('hidden', !canEditTrack);
+  $('#delete-button').toggleClass('hidden', !canDeleteTrack);
 }
 
 updateUserInfo();
