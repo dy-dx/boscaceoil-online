@@ -13,18 +13,18 @@
   , "page": "1.6.3"
   , "parse": "~1.4.2"
   , "purecss": "0.6.0"
-  , "query-string": "~1.0.0"
+  , "query-string": "~2.0.0"
   , "validator": "3.39.0"
   }
 , "devDependencies": {
-    "browser-sync": "~2.6.5"
-  , "browserify": "~9.0.8"
+    "browser-sync": "~2.7.1"
+  , "browserify": "~10.1.3"
   , "gulp": "~3.8.11"
   , "gulp-jade": "1.0.0"
   , "gulp-notify": "~2.2.0"
-  , "gulp-sass": "dlmanning/gulp-sass#2.x"
+  , "gulp-sass": "~2.0.0"
   , "vinyl-source-stream": "~1.1.0"
-  , "watchify": "~3.2.0"
+  , "watchify": "~3.2.1"
   }
 , "browser": {
     "bootstrap-modal": "./node_modules/bootstrap-sass/assets/javascripts/bootstrap/modal.js"
