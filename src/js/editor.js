@@ -76,11 +76,15 @@ Editor.prototype.saveTrack = function () {
   this.track.set("ceol", ceolString);
   this.track.save().then(function(track) {
     // update route
-    page('/track/' + track.id);
+    page.redirect('/track/' + track.id);
   }, function (error) {
     // the save failed
     window.alert("save failed");
   });
+};
+
+Editor.prototype.deleteTrack = function () {
+  return false;
 };
 
 

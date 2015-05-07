@@ -13,10 +13,6 @@ html(lang='en')
             li.pure-menu-item.pure-menu-selected
               a#new-button.pure-menu-link(href="#!/") New
             //- li.pure-menu-item
-            //-   a#save-button.pure-menu-link.hidden(href="#save") Save
-            //- li.pure-menu-item
-            //-   a#export-button.pure-menu-link(href="#") Export
-            //- li.pure-menu-item
             //-   a.pure-menu-link(href="#") Browse
           ul.pure-menu-list.user-menu
             li.pure-menu-item.login-link-container.hidden
@@ -42,9 +38,9 @@ html(lang='en')
                 a.pure-button Export
                 ul.pure-menu-children
                   li.pure-menu-item
-                    a.pure-menu-link(href='javascript:') .ceol
+                    a#export-ceol-button.pure-menu-link(href='javascript:') .ceol
                   li.pure-menu-item
-                    a.pure-menu-link(href='javascript:') .wav
+                    a#export-wav-button.pure-menu-link(href='javascript:') .wav
         #bosca-container
           object#BoscaCeoil(type='application/x-shockwave-flash', data='BoscaCeoil.swf', width='100%', height='100%', allowscriptaccess='always', allowfullscreen='true')
             param(name='scale', value='default')

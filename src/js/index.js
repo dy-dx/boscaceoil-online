@@ -19,11 +19,17 @@ var editor = new Editor();
 // expose global "api" for flash ExternalInterface.call stuff
 window.Bosca = editor;
 
+// backwards compatibility
+var oldTrackId = QueryString.parse(window.location.search).track;
+if (oldTrackId) {
+  window.location.hash = '#!/track/' + oldTrackId;
+  window.location.search = '';
+}
 
 // Routes
 
 // page.base('/#!');
-page.base(location.pathname + '#!');
+page.base(window.location.pathname + '#!');
 page('/', editTrack);
 page('/track/:trackId', loadTrack, editTrack);
 page('/profile', loadProfile, showProfile);
@@ -124,6 +130,21 @@ $('#save-button').click(function (e) {
   e.preventDefault();
   editor.saveTrack();
 });
+$('#delete-button').click(function (e) {
+  e.preventDefault();
+  if (window.confirm('Not implemented')) {
+    editor.deleteTrack();
+    // page.redirect('/');
+  }
+});
+$('#export-wav-button').click(function (e) {
+  e.preventDefault();
+  window.alert('Not implemented');
+});
+$('#export-ceol-button').click(function (e) {
+  e.preventDefault();
+  window.alert('Not implemented');
+});
 
 function updateUserInfo () {
   var user = Parse.User.current();
@@ -158,6 +179,7 @@ function updateTrackInfo () {
   $('#track-title').val(track.get('title'));
   $('#track-title').prop('readonly', !canEditTrack);
   $('#save-button').toggleClass('hidden', !canEditTrack);
+  $('#delete-button').toggleClass('hidden', !canEditTrack);
 }
 
 updateUserInfo();
