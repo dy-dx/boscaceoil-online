@@ -37,8 +37,7 @@ html, body {
 }
 
 #import-ceol-input {
-  position: absolute;
-  left: 99999px;
+  visibility: hidden;
   width: 0;
   height: 0;
 }
