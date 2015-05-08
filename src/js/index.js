@@ -154,7 +154,7 @@ $('#export-wav-button').click(function (e) {
 });
 $('#export-ceol-button').click(function (e) {
   e.preventDefault();
-  _notImplemented();
+  editor.exportCeol();
 });
 
 function updateUserInfo () {

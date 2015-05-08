@@ -9,6 +9,7 @@
   }
 , "dependencies": {
     "bootstrap-sass": "3.3.4"
+  , "filesaver.js": "0.1.1"
   , "jquery": "~2.1.4"
   , "page": "1.6.3"
   , "parse": "~1.4.2"

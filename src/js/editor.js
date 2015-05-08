@@ -1,4 +1,5 @@
 var page = require('page');
+var saveAs = require('filesaver.js');
 var Parse = require('parse').Parse;
 var Track = Parse.Object.extend("Track");
 
@@ -96,5 +97,12 @@ Editor.prototype.deleteTrack = function (cb) {
   });
 };
 
+Editor.prototype.exportCeol = function () {
+  var title = $('#track-title').val() || 'untitled';
+  var ceolString = this._getCeolString();
+  var filename = title.replace(/[^a-z0-9]/gi, '_') + '.ceol';
+  var blob = new Blob([ceolString], {type: 'text/plain;charset=utf-8'});
+  saveAs(blob, filename);
+};
 
 module.exports = Editor;
