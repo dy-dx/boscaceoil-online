@@ -36,6 +36,12 @@ html, body {
   // https://css-tricks.com/almanac/selectors/i/invalid/
 }
 
+#import-ceol-input {
+  position: absolute;
+  left: 99999px;
+  width: 0;
+  height: 0;
+}
 
 // colored button styles
 .button-success {

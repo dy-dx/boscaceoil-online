@@ -107,6 +107,10 @@ Editor.prototype.deleteTrack = function (cb) {
   });
 };
 
+Editor.prototype.importCeol = function (ceolString) {
+  this._invokeCeol(ceolString);
+};
+
 Editor.prototype.exportCeol = function () {
   var ceolString = this._getCeolString();
   var filename = this._makeFilename('ceol');

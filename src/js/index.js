@@ -156,6 +156,20 @@ $('#export-ceol-button').click(function (e) {
   e.preventDefault();
   editor.exportCeol();
 });
+$('#import-ceol-button').click(function (e) {
+  e.preventDefault();
+  $('#import-ceol-input').click();
+});
+$('#import-ceol-input').change(function (e) {
+  var file = this.files[0];
+  if (!file) { return; }
+  var reader = new window.FileReader();
+  reader.onload = function (e) {
+    editor.importCeol(e.target.result);
+  };
+  reader.readAsText(file);
+});
+
 
 function updateUserInfo () {
   var user = Parse.User.current();
@@ -193,6 +207,7 @@ function updateTrackInfo () {
   $('#track-title').prop('readonly', !canEditTrack);
   $('#save-button').toggleClass('hidden', !canEditTrack);
   $('#delete-button').toggleClass('hidden', !canDeleteTrack);
+  $('#import-ceol-button').toggleClass('hidden', !canEditTrack);
 }
 
 updateUserInfo();
