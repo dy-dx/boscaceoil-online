@@ -150,7 +150,7 @@ $('#delete-button').click(function (e) {
 });
 $('#export-wav-button').click(function (e) {
   e.preventDefault();
-  _notImplemented();
+  editor.exportWav();
 });
 $('#export-ceol-button').click(function (e) {
   e.preventDefault();
