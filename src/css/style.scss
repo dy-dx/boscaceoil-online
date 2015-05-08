@@ -67,3 +67,11 @@ html, body {
 .not-implemented {
   text-decoration: line-through;
 }
+
+.pure-menu-link:focus {
+  // overrides purecss style
+  &:not(:hover) {
+    background-color: initial;
+  }
+  outline: none;
+}
