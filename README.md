@@ -3,7 +3,7 @@
 
 Web interface for Terry Cavanagh's [Bosca Ceoil](http://distractionware.com/blog/2013/08/bosca-ceoil/) music sequencer.
 
-Demo: http://dy-dx.github.io/boscaceoil-online
+Demo: http://online.boscaceoil.net/
 
 Uses a specific build of Bosca Ceoil that works in the web browser.
 
@@ -13,7 +13,7 @@ Uses a specific build of Bosca Ceoil that works in the web browser.
 Build online-version of BoscaCeoil.swf
 
     # clone git@github.com:TerryCavanagh/boscaceoil.git
-    $ amxmlc -swf-version 20 -default-frame-rate 60 -default-size 768 480 -library-path+=lib/sion065.swc -source-path+=src -default-background-color 0x000000 -warnings -strict src/Main.as -o BoscaCeoil.swf -define+=CONFIG::desktop,false -define+=CONFIG::web,true
+    $ amxmlc -swf-version 28 -default-frame-rate 60 -default-size 768 560 -library-path+=lib/sion065.swc -source-path+=src -default-background-color 0x000000 -warnings -strict src/Main.as -o BoscaCeoil.swf -define+=CONFIG::desktop,false -define+=CONFIG::web,true
 
 Clone this repo and install the dependencies:
 
