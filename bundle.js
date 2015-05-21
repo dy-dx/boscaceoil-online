@@ -115,12 +115,11 @@ function exitProfile (ctx, next) {
 // helpers
 
 function _getTrack (id, cb) {
-  var query = new Parse.Query(Track);
-  query.get(id, {
+  Parse.Cloud.run('getTrack', { id: id }, {
     success: function (track) {
       cb(null, track);
     },
-    error: function (obj, err) {
+    error: function (err) {
       cb(err);
     }
   });
@@ -20728,11 +20727,11 @@ exports.parse = function (str) {
 };
 
 exports.stringify = function (obj) {
-	return obj ? Object.keys(obj).map(function (key) {
+	return obj ? Object.keys(obj).sort().map(function (key) {
 		var val = obj[key];
 
 		if (Array.isArray(val)) {
-			return val.map(function (val2) {
+			return val.sort().map(function (val2) {
 				return encodeURIComponent(key) + '=' + encodeURIComponent(val2);
 			}).join('&');
 		}
