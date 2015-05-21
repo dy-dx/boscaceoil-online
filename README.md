@@ -1,19 +1,19 @@
 # boscaceoil-online [![Dependency Status](https://david-dm.org/dy-dx/boscaceoil-online.png)](https://david-dm.org/dy-dx/boscaceoil-online) [![devDependency Status](https://david-dm.org/dy-dx/boscaceoil-online/dev-status.png)](https://david-dm.org/dy-dx/boscaceoil-online#info=devDependencies)
 
 
-Experimental. Web interface for Terry Cavanagh's [Bosca Ceoil](http://distractionware.com/blog/2013/08/bosca-ceoil/) music sequencer.
+Web interface for Terry Cavanagh's [Bosca Ceoil](http://distractionware.com/blog/2013/08/bosca-ceoil/) music sequencer.
 
 Demo: http://dy-dx.github.io/boscaceoil-online
 
-Uses a [fork](https://github.com/dy-dx/boscaceoil/tree/online-version) of Bosca Ceoil that works in the web browser.
+Uses a specific build of Bosca Ceoil that works in the web browser.
 
 
 ## Usage
 
 Build online-version of BoscaCeoil.swf
 
-    # clone git@github.com:dy-dx/boscaceoil.git and checkout "online-version" branch
-    $ amxmlc -swf-version 20 -default-frame-rate 60 -default-size 768 480 -library-path+=libs/sion065.swc -source-path+=src -default-background-color 0x000000 -warnings -strict src/Main.as -o BoscaCeoil.swf -define=CONFIG::desktop,false
+    # clone git@github.com:TerryCavanagh/boscaceoil.git
+    $ amxmlc -swf-version 20 -default-frame-rate 60 -default-size 768 480 -library-path+=lib/sion065.swc -source-path+=src -default-background-color 0x000000 -warnings -strict src/Main.as -o BoscaCeoil.swf -define+=CONFIG::desktop,false -define+=CONFIG::web,true
 
 Clone this repo and install the dependencies:
 
