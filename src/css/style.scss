@@ -4,6 +4,9 @@
 @import 'bootstrap/mixins';
 @import 'bootstrap/modals';
 
+$default-bosca-width: 768px;
+$default-bosca-height: 560px;
+
 html, body {
   // height: 100%;
   // background-color: black;
@@ -12,13 +15,13 @@ html, body {
 
 .editor {
   margin: 0 auto;
-  width: 768px;
+  width: $default-bosca-width;
 }
 
 #bosca-container {
   margin: 0 auto;
-  width: 768px;
-  height: 480px;
+  width: $default-bosca-width;
+  height: $default-bosca-height;
 }
 
 .user-menu {
