@@ -113,12 +113,11 @@ function exitProfile (ctx, next) {
 // helpers
 
 function _getTrack (id, cb) {
-  var query = new Parse.Query(Track);
-  query.get(id, {
+  Parse.Cloud.run('getTrack', { id: id }, {
     success: function (track) {
       cb(null, track);
     },
-    error: function (obj, err) {
+    error: function (err) {
       cb(err);
     }
   });

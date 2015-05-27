@@ -5,6 +5,25 @@ Parse.Cloud.define("hello", function(request, response) {
   response.success("Hello world!");
 });
 
+Parse.Cloud.define("getTrack", function (request, response) {
+  Parse.Cloud.useMasterKey();
+
+  var Track = Parse.Object.extend("Track");
+  var query = new Parse.Query(Track);
+  var id = request.params.id;
+  query.get(id, {
+    success: function (track) {
+      track.increment('views', 1);
+      // Don't care about err handling here
+      track.save(null, { useMasterKey: true });
+
+      response.success(track);
+    },
+    error: function (obj, err) {
+      return response.error(err);
+    }
+  });
+});
 
 Parse.Cloud.beforeSave(Parse.User, function(request, response) {
   var obj = request.object;
@@ -67,6 +86,9 @@ Parse.Cloud.beforeSave("Track", function(request, response) {
 
   // beforeCreate
   if ( track.isNew() ) {
+    // Set views to 0
+    track.set('views', 0);
+
     var trackACL = null;
 
     // Set user
