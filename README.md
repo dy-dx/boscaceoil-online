@@ -8,12 +8,21 @@ Demo: http://online.boscaceoil.net/
 Uses a specific build of Bosca Ceoil that works in the web browser.
 
 
-## Usage
+## Todo
+
+ - Add MIDI import/export bindings
+ - Add XM export bindings
+ - Add scaling support
+ - Improve UI
+
+
+## Developing
 
 Build online-version of BoscaCeoil.swf
 
-    # clone git@github.com:TerryCavanagh/boscaceoil.git
-    $ amxmlc -swf-version 28 -default-frame-rate 60 -default-size 768 560 -library-path+=lib/sion065.swc -source-path+=src -default-background-color 0x000000 -warnings -strict src/Main.as -o BoscaCeoil.swf -define+=CONFIG::desktop,false -define+=CONFIG::web,true
+    $ git clone git@github.com:TerryCavanagh/boscaceoil.git
+    $ cd boscaceoil
+    $ amxmlc -swf-version 28 -default-frame-rate 30 -default-size 768 560 -library-path+=lib/sion065.swc -source-path+=src -default-background-color 0x000000 -warnings -strict src/Main.as -o BoscaCeoil.swf -define+=CONFIG::desktop,false -define+=CONFIG::web,true
 
 Clone this repo and install the dependencies:
 
